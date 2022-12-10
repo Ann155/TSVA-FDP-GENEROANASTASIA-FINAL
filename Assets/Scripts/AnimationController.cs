@@ -26,14 +26,14 @@ public class AnimationController : MonoBehaviour
         Vector3 move = new Vector3(x, 0, z);
         if (move.magnitude > 0.0f)
         {
-            animator.SetBool("Moving", true);
+            //animator.SetBool("Moving", true);
 
             velocity += Time.deltaTime * acceleration;
         }
 
         if (move.magnitude < 0.1f)
         {
-            animator.SetBool("Moving", false);
+            //animator.SetBool("Moving", false);
 
             velocity -= Time.deltaTime * deceleration;
 
