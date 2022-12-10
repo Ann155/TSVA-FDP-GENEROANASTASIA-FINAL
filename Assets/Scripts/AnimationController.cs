@@ -5,10 +5,17 @@ using UnityEngine;
 public class AnimationController : MonoBehaviour
 {
     public Animator animator;
+    float velocity = 0.0f;
+    public float acceleration = 0.2f;
+    public float deceleration = 0.5f;
+    int VelocityHash;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
+
+        VelocityHash = Animator.StringToHash("Velocity");
     }
 
     // Update is called once per frame
@@ -17,15 +24,24 @@ public class AnimationController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
         Vector3 move = new Vector3(x, 0, z);
-        if (move.magnitude > 0.1f)
+        if (move.magnitude > 0.0f)
         {
             animator.SetBool("Moving", true);
+
+            velocity += Time.deltaTime * acceleration;
         }
-        else
+
+        if (move.magnitude < 0.1f)
         {
             animator.SetBool("Moving", false);
+
+            velocity -= Time.deltaTime * deceleration;
+
+            velocity = 0.0f;
         }
-        
+
+
+        animator.SetFloat(VelocityHash, velocity);
 
     }
 }
